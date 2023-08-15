@@ -1,5 +1,11 @@
+import Topbar from "./component/Topbar";
+
 function App() {
-  return <>blog react app</>;
+  return (
+    <>
+      <Topbar />
+    </>
+  );
 }
 
 export default App;

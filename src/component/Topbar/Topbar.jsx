@@ -4,6 +4,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import SearchIcon from "@mui/icons-material/Search";
+import { Link } from "react-router-dom";
 
 const Topbar = () => {
   const topBarIconsCSS = {
@@ -18,6 +19,10 @@ const Topbar = () => {
     cursor: "pointer",
     marginLeft: "15px",
   };
+  const anchorTagCSS = {
+    color: "inherit",
+    textDecoration: "none",
+  };
   return (
     <div className="top">
       <div className="topLeft">
@@ -27,7 +32,11 @@ const Topbar = () => {
       </div>
       <div className="topCenter">
         <ul className="topList">
-          <li className="topListItem">HOME</li>
+          <li className="topListItem">
+            <Link to="/" style={anchorTagCSS}>
+              HOME
+            </Link>
+          </li>
           <li className="topListItem">ABOUT</li>
           <li className="topListItem">CONTACT</li>
           <li className="topListItem">WRITE</li>

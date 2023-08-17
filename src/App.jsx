@@ -5,13 +5,7 @@ import Single from "./pages/single/Single";
 import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
 import Settings from "./pages/settings/Settings";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-  Outlet,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (

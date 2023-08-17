@@ -4,9 +4,11 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import SearchIcon from "@mui/icons-material/Search";
+
 import { Link } from "react-router-dom";
 
 const Topbar = () => {
+  const user = false;
   const topBarIconsCSS = {
     color: "#444",
     marginRight: "10px",
@@ -37,14 +39,40 @@ const Topbar = () => {
               HOME
             </Link>
           </li>
-          <li className="topListItem">ABOUT</li>
-          <li className="topListItem">CONTACT</li>
-          <li className="topListItem">WRITE</li>
-          <li className="topListItem">LOGOUT</li>
+          <li className="topListItem">
+            <Link to="/" style={anchorTagCSS}>
+              ABOUT
+            </Link>
+          </li>
+          <li className="topListItem">
+            <Link to="/" style={anchorTagCSS}>
+              CONCTACT
+            </Link>
+          </li>
+          <li className="topListItem">
+            <Link to="/write" style={anchorTagCSS}>
+              WRITE
+            </Link>
+          </li>
+          {user && <li className="topListItem">LOGOUT</li>}
         </ul>
       </div>
       <div className="topRight">
-        <img className="topImg" src="" alt="" />
+        {user ? (
+          <img className="topImg" src="" alt="" />
+        ) : (
+          <ul className="topListItem">
+            <Link to="/login" style={anchorTagCSS}>
+              LOGIN
+            </Link>
+            <Link
+              to="/register"
+              style={{ ...anchorTagCSS, marginLeft: "15px" }}
+            >
+              REGISTER
+            </Link>
+          </ul>
+        )}
         <SearchIcon sx={searchBarIconCSS} />
       </div>
     </div>

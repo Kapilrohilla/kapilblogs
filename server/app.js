@@ -3,10 +3,11 @@ const { MONGODB_URI } = require("./utils/config");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const { default: mongoose } = require("mongoose");
 
 // router
 const userRouter = require("./controllers/users");
-const { default: mongoose } = require("mongoose");
+const loginRouter = require("./controllers/login");
 
 app.use(express.json());
 
@@ -30,5 +31,5 @@ mongoose
 
 // routers
 app.use("/api/users", userRouter);
-
+app.use("/api/login", loginRouter);
 module.exports = app;

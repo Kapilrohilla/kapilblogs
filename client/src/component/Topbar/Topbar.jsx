@@ -6,25 +6,34 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { DataProvider } from "../../contexts/DataProvider";
+
+const topBarIconsCSS = {
+  color: "#444",
+  marginRight: "10px",
+  fontSize: "20px",
+  cursor: "pointer",
+};
+const searchBarIconCSS = {
+  fontSize: "18px",
+  color: "#666",
+  cursor: "pointer",
+  marginLeft: "15px",
+};
+const anchorTagCSS = {
+  color: "inherit",
+  textDecoration: "none",
+};
 
 const Topbar = () => {
-  const user = false;
-  const topBarIconsCSS = {
-    color: "#444",
-    marginRight: "10px",
-    fontSize: "20px",
-    cursor: "pointer",
-  };
-  const searchBarIconCSS = {
-    fontSize: "18px",
-    color: "#666",
-    cursor: "pointer",
-    marginLeft: "15px",
-  };
-  const anchorTagCSS = {
-    color: "inherit",
-    textDecoration: "none",
-  };
+  const globalStates = useContext(DataProvider);
+  console.log(globalStates);
+  // const user = false;
+  function handleLogout() {
+    globalStates.setUser(null);
+    window.localStorage.removeItem("loggedInUser");
+  }
   return (
     <div className="top">
       <div className="topLeft">
@@ -54,11 +63,15 @@ const Topbar = () => {
               WRITE
             </Link>
           </li>
-          {user && <li className="topListItem">LOGOUT</li>}
+          {globalStates.user && (
+            <li className="topListItem" onClick={handleLogout}>
+              LOGOUT
+            </li>
+          )}
         </ul>
       </div>
       <div className="topRight">
-        {user ? (
+        {globalStates.user ? (
           <img className="topImg" src="" alt="" />
         ) : (
           <ul className="topListItem">

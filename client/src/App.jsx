@@ -6,6 +6,8 @@ import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
 import Settings from "./pages/settings/Settings";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { DataProvider } from "./contexts/DataProvider";
+import { useState } from "react";
 
 const Layout = () => {
   return (
@@ -17,7 +19,9 @@ const Layout = () => {
 };
 
 function App() {
-  const user = false;
+  const [user, setUser] = useState(null);
+  const [blogs, setBlogs] = useState(null);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -50,7 +54,11 @@ function App() {
       ],
     },
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <DataProvider.Provider value={{ user, setUser, blogs, setBlogs }}>
+      <RouterProvider router={router} />
+    </DataProvider.Provider>
+  );
 }
 
 export default App;

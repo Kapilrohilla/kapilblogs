@@ -4,12 +4,14 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const { default: mongoose } = require("mongoose");
+const cors = require("cors");
 
 // router
 const userRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
 const blogRouter = require("./controllers/blogs");
 
+app.use(cors());
 app.use(express.json());
 
 morgan.token("reqBody", function (req) {

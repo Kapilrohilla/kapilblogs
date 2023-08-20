@@ -8,6 +8,7 @@ const { default: mongoose } = require("mongoose");
 // router
 const userRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
+const blogRouter = require("./controllers/blogs");
 
 app.use(express.json());
 
@@ -29,7 +30,10 @@ mongoose
     logger.error(`failed in connecting to mongodb, ${err}`);
   });
 
+app.use(express.urlencoded({ extended: false }));
+
 // routers
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
+app.use("/api/blogs", blogRouter);
 module.exports = app;

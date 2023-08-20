@@ -17,6 +17,10 @@ const Schema = mongoose.Schema({
     type: String,
     required: true,
   },
+  profilePic: {
+    type: String,
+    default: "",
+  },
   blogs: [
     {
       type: mongoose.Schema.Types.ObjectId,

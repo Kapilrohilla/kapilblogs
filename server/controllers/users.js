@@ -1,7 +1,8 @@
 const userRouter = require("express").Router();
-const User = require("../models/user");
+const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
+// GET ALL USER
 userRouter.get("/", async (_req, res) => {
   try {
     const users = await User.find();
@@ -12,7 +13,7 @@ userRouter.get("/", async (_req, res) => {
   }
 });
 
-// working on creating user api
+// POST NEW USER
 userRouter.post("/", async (req, res) => {
   const { username, email, password } = req.body;
   if (!(username && email && password)) {

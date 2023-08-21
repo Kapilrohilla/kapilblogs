@@ -1,11 +1,34 @@
+import { useState } from "react";
 import "./Write.css";
 import AddIcon from "@mui/icons-material/Add";
+import blogs_services from "../../services/blogs_services";
 
 export default function Write() {
+  const [newBlog, setNewBlog] = useState({
+    title: "",
+    description: "",
+    blogImg: "",
+  });
+  const handleSubmitBlog = async (e) => {
+    e.preventDefault();
+
+    const blogData = new FormData();
+    blogData.append("title", newBlog.title);
+    blogData.append("desc", newBlog.description);
+    blogData.append("blogImg", newBlog.blogImg);
+    console.log(blogData);
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+    await blogs_services.createBlog(blogData, config);
+    alert(`${newBlog.title} blog created!!!!`);
+  };
   return (
     <div className="write">
-      <img className="writeImg" src="" alt="" />
-      <form className="writeForm">
+      {newBlog.blogImg && <img src={newBlog.blogImg} className="writeImg" />}
+      <form className="writeForm" onSubmit={handleSubmitBlog}>
         <div className="writeFormGroup">
           <label htmlFor="fileInput">
             <AddIcon
@@ -20,12 +43,29 @@ export default function Write() {
               }}
             />
           </label>
-          <input type="file" id="fileInput" style={{ display: "none" }} />
+          <input
+            type="file"
+            id="fileInput"
+            style={{ display: "none" }}
+            onChange={(e) => {
+              setNewBlog({
+                ...newBlog,
+                blogImg: URL.createObjectURL(e.target.files[0]),
+              });
+            }}
+          />
           <input
             type="text"
             placeholder="title"
             className="writeInput"
             autoFocus={true}
+            value={newBlog.title}
+            onChange={(e) =>
+              setNewBlog({
+                ...newBlog,
+                title: e.target.value,
+              })
+            }
           />
         </div>
         <div className="writeFormGroup">
@@ -33,6 +73,13 @@ export default function Write() {
             placeholder="tell your story"
             type="text"
             className="writeInput writeText"
+            value={newBlog.description}
+            onChange={(e) =>
+              setNewBlog({
+                ...newBlog,
+                description: e.target.value,
+              })
+            }
           ></textarea>
           <button className="writeSubmit">Publish</button>
         </div>

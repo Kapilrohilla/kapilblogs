@@ -7,7 +7,7 @@ import Login from "./pages/login/Login";
 import Settings from "./pages/settings/Settings";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { DataProvider } from "./contexts/DataProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Layout = () => {
   return (
@@ -21,7 +21,14 @@ const Layout = () => {
 function App() {
   const [user, setUser] = useState(null);
   const [blogs, setBlogs] = useState(null);
-
+  useEffect(() => {
+    const alreadyLoginUser = JSON.parse(
+      window.localStorage.getItem("loggedInUser")
+    );
+    if (alreadyLoginUser) {
+      setUser(alreadyLoginUser);
+    }
+  }, []);
   const router = createBrowserRouter([
     {
       path: "/",

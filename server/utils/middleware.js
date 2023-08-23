@@ -1,7 +1,7 @@
 const logger = require("./logger");
 
 // Error Hanlding
-function errorHandler(err, req, res, next) {
+function errorHandler(err, req, res) {
   logger.info(err);
   if (
     err.name === "MongoServerSelectionError" ||
@@ -14,6 +14,10 @@ function errorHandler(err, req, res, next) {
   } else if (err.name === "ValidationError") {
     return res.status(400).json({
       err: err.message,
+    });
+  } else if (err.name === "CastError") {
+    res.status(500).json({
+      err: "malfunction id",
     });
   }
   console.log(err);

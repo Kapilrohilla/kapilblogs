@@ -17,7 +17,7 @@ blogRouter.get("/:id", async (req, res, next) => {
   const id = req.params.id;
 
   try {
-    const blog = Blog.findById(id);
+    const blog = await Blog.findById(id);
     return res.status(200).json(blog);
   } catch (err) {
     next(err);

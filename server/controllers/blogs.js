@@ -3,25 +3,24 @@ const Blog = require("../models/Blog");
 const multer = require("multer");
 
 // GET ALL BLOG
-blogRouter.get("/", async (req, res) => {
+blogRouter.get("/", async (req, res, next) => {
   try {
     const allBlog = await Blog.find({});
     res.status(200).json(allBlog);
   } catch (err) {
-    res.sendStatus(500);
+    next(err);
   }
 });
 
 // GET SPECIFIC BLOG
-blogRouter.get("/:id", async (req, res) => {
+blogRouter.get("/:id", async (req, res, next) => {
   const id = req.params.id;
 
   try {
-    const blog = Blog.findById(id);
+    const blog = await Blog.findById(id);
     return res.status(200).json(blog);
   } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
+    next(err);
   }
 });
 

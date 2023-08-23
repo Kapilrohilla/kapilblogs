@@ -3,18 +3,17 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
 // GET ALL USER
-userRouter.get("/", async (_req, res) => {
+userRouter.get("/", async (_req, res, next) => {
   try {
     const users = await User.find();
     return res.status(200).json(users);
   } catch (err) {
-    console.log(`unable to fetch userData, ${err}`);
-    return res.sendStatus(500);
+    next(err);
   }
 });
 
 // POST NEW USER
-userRouter.post("/", async (req, res) => {
+userRouter.post("/", async (req, res, next) => {
   const { username, email, password } = req.body;
   if (!(username && email && password)) {
     return res.status(400).json({
@@ -29,16 +28,10 @@ userRouter.post("/", async (req, res) => {
       email,
       passwordHash,
     });
-    await user.save();
-    res.status(204).end();
+    const response = await user.save();
+    res.status(204).json(response);
   } catch (err) {
-    if (err.name === "ValidationError") {
-      return res.status(400).json({
-        err: err.message,
-      });
-    }
-    console.log(err.name);
-    res.sendStatus(500);
+    next(err);
   }
 });
 

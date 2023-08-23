@@ -16,7 +16,6 @@ export default function Write() {
     blogData.append("title", newBlog.title);
     blogData.append("desc", newBlog.description);
     blogData.append("blogImg", newBlog.blogImg);
-    console.log(blogData);
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",

@@ -10,6 +10,7 @@ const cors = require("cors");
 const userRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
 const blogRouter = require("./controllers/blogs");
+const { errorHandler } = require("./utils/middleware");
 
 app.use(cors());
 app.use(express.json());
@@ -38,4 +39,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/blogs", blogRouter);
+
+// Error handling
+app.use(errorHandler);
 module.exports = app;

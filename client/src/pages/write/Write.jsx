@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./Write.css";
 import AddIcon from "@mui/icons-material/Add";
 import blogs_services from "../../services/blogs_services";
+import DataContext from "../../contexts/DataProvider";
 
 export default function Write() {
   const [newBlog, setNewBlog] = useState({
@@ -9,6 +10,7 @@ export default function Write() {
     description: "",
     blogImg: "",
   });
+  const globalStates = useContext(DataContext);
   const handleSubmitBlog = async (e) => {
     e.preventDefault();
 
@@ -19,14 +21,18 @@ export default function Write() {
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${globalStates.user.token}`,
       },
     };
     await blogs_services.createBlog(blogData, config);
+
     alert(`${newBlog.title} blog created!!!!`);
   };
   return (
     <div className="write">
-      {newBlog.blogImg && <img src={newBlog.blogImg} className="writeImg" />}
+      {newBlog.blogImg && (
+        <img src={URL.createObjectURL(newBlog.blogImg)} className="writeImg" />
+      )}
       <form className="writeForm" onSubmit={handleSubmitBlog}>
         <div className="writeFormGroup">
           <label htmlFor="fileInput">
@@ -49,7 +55,7 @@ export default function Write() {
             onChange={(e) => {
               setNewBlog({
                 ...newBlog,
-                blogImg: URL.createObjectURL(e.target.files[0]),
+                blogImg: e.target.files[0],
               });
             }}
           />

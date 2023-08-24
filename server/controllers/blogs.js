@@ -6,7 +6,11 @@ const path = require("path");
 // GET ALL BLOG
 blogRouter.get("/", async (req, res, next) => {
   try {
-    const allBlog = await Blog.find({}).populate("user");
+    const allBlog = await Blog.find({}).populate("user", {
+      username: 1,
+      id: 1,
+      email: 1,
+    });
     res.status(200).json(allBlog);
   } catch (err) {
     next(err);
@@ -18,7 +22,11 @@ blogRouter.get("/:id", async (req, res, next) => {
   const id = req.params.id;
 
   try {
-    const blog = await Blog.findById(id).populate("user");
+    const blog = await Blog.findById(id).populate("user", {
+      username: 1,
+      id: 1,
+      email: 1,
+    });
     const photoref = path.join(__dirname, "/../", blog.photo);
     res.status(200).json(blog);
     res.sendFile(photoref);

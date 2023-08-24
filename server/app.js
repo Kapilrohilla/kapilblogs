@@ -5,12 +5,11 @@ const app = express();
 const morgan = require("morgan");
 const { default: mongoose } = require("mongoose");
 const cors = require("cors");
-
+const middleware = require("./utils/middleware");
 // router
 const userRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
 const blogRouter = require("./controllers/blogs");
-const { errorHandler } = require("./utils/middleware");
 
 app.use(cors());
 app.use(express.json());
@@ -33,13 +32,15 @@ mongoose
     logger.error(`failed in connecting to mongodb, ${err}`);
   });
 
+app.use("/uploads", express.static("uploads"));
 app.use(express.urlencoded({ extended: false }));
-
+app.use(middleware.tokenExtractor);
+app.use(middleware.userExtractor);
 // routers
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/blogs", blogRouter);
 
 // Error handling
-app.use(errorHandler);
+app.use(middleware.errorHandler);
 module.exports = app;

@@ -1,7 +1,7 @@
 const userRouter = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
-
+// const multer = require("multer");
 // GET ALL USER
 userRouter.get("/", async (_req, res, next) => {
   try {
@@ -29,7 +29,7 @@ userRouter.post("/", async (req, res, next) => {
       passwordHash,
     });
     const response = await user.save();
-    res.status(204).json(response);
+    res.json(response).status(204);
   } catch (err) {
     next(err);
   }

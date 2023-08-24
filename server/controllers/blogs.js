@@ -1,7 +1,7 @@
 const blogRouter = require("express").Router();
 const Blog = require("../models/Blog");
 const multer = require("multer");
-
+const path = require("path");
 // GET ALL BLOG
 blogRouter.get("/", async (req, res, next) => {
   try {
@@ -18,7 +18,9 @@ blogRouter.get("/:id", async (req, res, next) => {
 
   try {
     const blog = await Blog.findById(id);
-    return res.status(200).json(blog);
+    const photoref = path.join(__dirname, "/../", blog.photo);
+    res.status(200).json(blog);
+    res.sendFile(photoref);
   } catch (err) {
     next(err);
   }
@@ -36,14 +38,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // POST BLOG
-blogRouter.post("/", upload.single("blogImg"), async (req, res) => {
+blogRouter.post("/", upload.single("blogImg"), async (req, res, next) => {
+  if (!req.user) {
+    return res.sendStatus(401);
+  }
   const preNewBlog = {
     title: req.body.title,
     desc: req.body.desc,
     photo: req.file.path,
   };
 
-  //   console.log(req.file);
   if (!preNewBlog.title) {
     return res.status(400).json({
       err: "title is required",
@@ -53,10 +57,9 @@ blogRouter.post("/", upload.single("blogImg"), async (req, res) => {
   const newBlog = new Blog(preNewBlog);
   try {
     const response = await newBlog.save();
-    return res.status(204).json(response);
+    return res.json(response).status(204);
   } catch (err) {
-    console.log(err);
-    return res.sendStatus(400);
+    next(err);
   }
 });
 

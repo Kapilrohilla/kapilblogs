@@ -5,7 +5,6 @@ const User = require("../models/User");
 
 // Error Hanlding
 function errorHandler(err, req, res, next) {
-  logger.info(err);
   if (
     err.name === "MongoServerSelectionError" ||
     err.name === "MongooseError"
@@ -23,7 +22,7 @@ function errorHandler(err, req, res, next) {
       err: "malfunction id",
     });
   }
-  // console.log(err);
+  logger.error(err);
   res.sendStatus(500);
 }
 

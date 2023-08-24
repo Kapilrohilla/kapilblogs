@@ -1,11 +1,12 @@
 const blogRouter = require("express").Router();
 const Blog = require("../models/Blog");
+const User = require("../models/User");
 const multer = require("multer");
 const path = require("path");
 // GET ALL BLOG
 blogRouter.get("/", async (req, res, next) => {
   try {
-    const allBlog = await Blog.find({});
+    const allBlog = await Blog.find({}).populate("user");
     res.status(200).json(allBlog);
   } catch (err) {
     next(err);
@@ -17,7 +18,7 @@ blogRouter.get("/:id", async (req, res, next) => {
   const id = req.params.id;
 
   try {
-    const blog = await Blog.findById(id);
+    const blog = await Blog.findById(id).populate("user");
     const photoref = path.join(__dirname, "/../", blog.photo);
     res.status(200).json(blog);
     res.sendFile(photoref);
@@ -46,6 +47,7 @@ blogRouter.post("/", upload.single("blogImg"), async (req, res, next) => {
     title: req.body.title,
     desc: req.body.desc,
     photo: req.file.path,
+    user: req.user.id,
   };
 
   if (!preNewBlog.title) {
@@ -57,6 +59,11 @@ blogRouter.post("/", upload.single("blogImg"), async (req, res, next) => {
   const newBlog = new Blog(preNewBlog);
   try {
     const response = await newBlog.save();
+
+    const user = await User.findById(req.user.id);
+    user.blogs = user.blogs.concat(response._id);
+    await user.save();
+
     return res.json(response).status(204);
   } catch (err) {
     next(err);

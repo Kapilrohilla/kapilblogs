@@ -1,3 +1,4 @@
 import { createContext } from "react";
 
-export const DataProvider = createContext(null);
+const DataProvider = createContext(null);
+export default DataProvider;

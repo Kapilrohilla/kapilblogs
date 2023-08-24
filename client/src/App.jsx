@@ -6,8 +6,9 @@ import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
 import Settings from "./pages/settings/Settings";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import { DataProvider } from "./contexts/DataProvider";
+import DataProvider from "./contexts/DataProvider";
 import { useEffect, useState } from "react";
+import blogs_services from "./services/blogs_services";
 
 const Layout = () => {
   return (
@@ -21,6 +22,9 @@ const Layout = () => {
 function App() {
   const [user, setUser] = useState(null);
   const [blogs, setBlogs] = useState(null);
+  console.log("----blogs-----");
+  console.log(blogs);
+  console.log("----blogs-----");
   useEffect(() => {
     const alreadyLoginUser = JSON.parse(
       window.localStorage.getItem("loggedInUser")
@@ -28,6 +32,11 @@ function App() {
     if (alreadyLoginUser) {
       setUser(alreadyLoginUser);
     }
+    const fetchData = async () => {
+      const blog_data = await blogs_services.getAllBlog();
+      setBlogs(blog_data);
+    };
+    fetchData();
   }, []);
   const router = createBrowserRouter([
     {
@@ -51,7 +60,7 @@ function App() {
           element: user ? <Home /> : <Login />,
         },
         {
-          path: "/:id",
+          path: "post/:id",
           element: <Single />,
         },
         {

@@ -7,7 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { DataProvider } from "../../contexts/DataProvider";
+import DataProvider from "../../contexts/DataProvider";
 
 const topBarIconsCSS = {
   color: "#444",
@@ -28,7 +28,6 @@ const anchorTagCSS = {
 
 const Topbar = () => {
   const globalStates = useContext(DataProvider);
-  console.log(globalStates);
   // const user = false;
   function handleLogout() {
     globalStates.setUser(null);

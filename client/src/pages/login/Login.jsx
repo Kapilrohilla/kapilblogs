@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import userServices from "../../services/user_services";
 import { useContext, useState } from "react";
-import { DataProvider } from "../../contexts/DataProvider";
+import DataProvider from "../../contexts/DataProvider";
 
 const anchorTagCSS = {
   color: "inherit",

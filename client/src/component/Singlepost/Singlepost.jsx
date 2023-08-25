@@ -62,7 +62,9 @@ export default function Singlepost({ post }) {
         <span className="singlePostAuthor">
           Author: <b>{post.user[0].username}</b>
         </span>
-        <span className="singlePostDate">1 hr ago</span>
+        <span className="singlePostDate">
+          {new Date(post.createdAt).toDateString()}
+        </span>
       </div>
       <p className="singlePostDesc">{post.desc}</p>
     </div>

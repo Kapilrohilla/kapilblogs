@@ -21,7 +21,9 @@ export default function Post({ blog }) {
           </Link>
         </span>
         <hr />
-        <span className="postDate">3 hour ago</span>
+        <span className="postDate">
+          {new Date(blog.createdAt).toDateString()}
+        </span>
       </div>
       <p className="postDisc">{blog.desc}</p>
     </div>

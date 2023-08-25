@@ -13,6 +13,7 @@ const singlePostEditIconCss = {
 };
 
 export default function Singlepost({ post }) {
+  console.log(post);
   const navigate = useNavigate();
   const globalStates = useContext(DataProvider);
   async function handleDelete() {

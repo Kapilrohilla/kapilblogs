@@ -51,10 +51,11 @@ blogRouter.post("/", upload.single("blogImg"), async (req, res, next) => {
   if (!req.user) {
     return res.sendStatus(401);
   }
+  const imgPath = req.file ? req.file.path : "uploads/defaults/blog.png";
   const preNewBlog = {
     title: req.body.title,
     desc: req.body.desc,
-    photo: req.file.path,
+    photo: imgPath,
     user: req.user.id,
   };
 

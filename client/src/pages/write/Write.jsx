@@ -3,6 +3,7 @@ import "./Write.css";
 import AddIcon from "@mui/icons-material/Add";
 import blogs_services from "../../services/blogs_services";
 import DataContext from "../../contexts/DataProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function Write() {
   const [newBlog, setNewBlog] = useState({
@@ -10,6 +11,7 @@ export default function Write() {
     description: "",
     blogImg: "",
   });
+  const navigate = useNavigate();
   const globalStates = useContext(DataContext);
   const handleSubmitBlog = async (e) => {
     e.preventDefault();
@@ -24,9 +26,9 @@ export default function Write() {
         Authorization: `Bearer ${globalStates.user.token}`,
       },
     };
-    await blogs_services.createBlog(blogData, config);
-
-    alert(`${newBlog.title} blog created!!!!`);
+    const responseData = await blogs_services.createBlog(blogData, config);
+    globalStates.setBlogs(globalStates.blogs.concat(responseData));
+    navigate("/");
   };
   return (
     <div className="write">

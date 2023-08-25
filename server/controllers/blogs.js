@@ -2,7 +2,6 @@ const blogRouter = require("express").Router();
 const Blog = require("../models/Blog");
 const User = require("../models/User");
 const multer = require("multer");
-const path = require("path");
 // GET ALL BLOG
 blogRouter.get("/", async (req, res, next) => {
   try {
@@ -27,9 +26,7 @@ blogRouter.get("/:id", async (req, res, next) => {
       id: 1,
       email: 1,
     });
-    const photoref = path.join(__dirname, "/../", blog.photo);
     res.status(200).json(blog);
-    res.sendFile(photoref);
   } catch (err) {
     next(err);
   }

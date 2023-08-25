@@ -1,19 +1,28 @@
 /* eslint-disable react/prop-types */
 import "./Singlepost.css";
-
+import { useContext } from "react";
+import DataProvider from "../../contexts/DataProvider";
 // icons
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import blogs_services from "../../services/blogs_services";
+
+const singlePostEditIconCss = {
+  marginLeft: "10px",
+  cursor: "pointer",
+};
 
 export default function Singlepost({ post }) {
-  console.log("--------post-----------");
-  console.log(post);
-  console.log("--------post-----------");
-
-  const singlePostEditIconCss = {
-    marginLeft: "10px",
-    cursor: "pointer",
-  };
+  const globalStates = useContext(DataProvider);
+  async function handleDelete() {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${globalStates.user.token}`,
+      },
+    };
+    await blogs_services.deleteBlog(post.id, config);
+    // update globalStates.blogs, navigate to homepage
+  }
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
@@ -24,10 +33,20 @@ export default function Singlepost({ post }) {
         />
       </div>
       <h1 className="singlePostTitle">
-        {post.title}{" "}
+        {post.title}
         <div className="singlePostEdit">
-          <EditIcon sx={{ ...singlePostEditIconCss, color: "teal" }} />
-          <DeleteIcon sx={{ ...singlePostEditIconCss, color: "tomato" }} />
+          {globalStates.user !== null &&
+          globalStates.user.username === post.user[0].username ? (
+            <>
+              <EditIcon sx={{ ...singlePostEditIconCss, color: "teal" }} />
+              <DeleteIcon
+                sx={{ ...singlePostEditIconCss, color: "tomato" }}
+                onClick={handleDelete}
+              />
+            </>
+          ) : (
+            "Edit options aren't available for you"
+          )}
         </div>
       </h1>
       <div className="singlePostInfo">

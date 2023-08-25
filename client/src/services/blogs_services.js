@@ -10,4 +10,8 @@ const createBlog = async (newData, config) => {
   const response = await axios.post(baseUrl, newData, config);
   return response.data;
 };
-export default { getAllBlog, createBlog };
+const deleteBlog = async (id, config) => {
+  const response = await axios.delete(`${baseUrl}/${id}`, config);
+  return response.data;
+};
+export default { getAllBlog, createBlog, deleteBlog };

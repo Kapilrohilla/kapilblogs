@@ -5,7 +5,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import SearchIcon from "@mui/icons-material/Search";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import DataProvider from "../../contexts/DataProvider";
 
@@ -29,6 +29,7 @@ const anchorTagCSS = {
 const Topbar = () => {
   const globalStates = useContext(DataProvider);
   // const user = false;
+  const navigate = useNavigate();
   function handleLogout() {
     globalStates.setUser(null);
     window.localStorage.removeItem("loggedInUser");
@@ -71,7 +72,14 @@ const Topbar = () => {
       </div>
       <div className="topRight">
         {globalStates.user ? (
-          <img className="topImg" src="" alt="" />
+          <img
+            className="topImg"
+            src={globalStates.user.profilePic}
+            alt={globalStates.user.username}
+            onClick={() => {
+              navigate("/settings");
+            }}
+          />
         ) : (
           <ul className="topListItem">
             <Link to="/login" style={anchorTagCSS}>

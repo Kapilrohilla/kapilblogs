@@ -79,4 +79,23 @@ blogRouter.post("/", upload.single("blogImg"), async (req, res, next) => {
   }
 });
 
+// DELETE BLOG
+blogRouter.delete("/:id", async (req, res, next) => {
+  const id = req.params.id;
+  if (!req.user) {
+    return res.sendStatus(401);
+  }
+  if (req.user.blogs.includes(id)) {
+    try {
+      const response = await Blog.findByIdAndDelete(id);
+      res.status(202).send(response);
+    } catch (err) {
+      next(err);
+    }
+  } else {
+    return res.status(400).json({
+      err: "blog not found",
+    });
+  }
+});
 module.exports = blogRouter;

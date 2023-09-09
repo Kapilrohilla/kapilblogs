@@ -33,9 +33,12 @@ export default function Write() {
   };
   return (
     <div className="write">
+      <div className="writeImgContainer">
       {newBlog.blogImg && (
         <img src={URL.createObjectURL(newBlog.blogImg)} className="writeImg" />
-      )}
+        )}
+      </div>
+        <button className="writeSubmit">Publish</button>
       <form className="writeForm" onSubmit={handleSubmitBlog}>
         <div className="writeFormGroup">
           <label htmlFor="fileInput">
@@ -89,7 +92,6 @@ export default function Write() {
               })
             }
           ></textarea>
-          <button className="writeSubmit">Publish</button>
         </div>
       </form>
     </div>

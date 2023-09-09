@@ -20,7 +20,17 @@
 }
 .headerImg {
   width: 100%;
-  height: 450px;
+  height: 600px;
   margin-top: 80px;
   object-fit: cover;
+}
+@media screen and (max-width: 1000px) {
+  .headerImg{
+    height: 400px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .headerImg{
+    height: 300px;
+  }
 }

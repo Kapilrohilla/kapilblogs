@@ -34,12 +34,17 @@ export default function Write() {
   return (
     <div className="write">
       <div className="writeImgContainer">
-      {newBlog.blogImg && (
-        <img src={URL.createObjectURL(newBlog.blogImg)} className="writeImg" />
+        {newBlog.blogImg && (
+          <img
+            src={URL.createObjectURL(newBlog.blogImg)}
+            className="writeImg"
+          />
         )}
       </div>
-        <button className="writeSubmit">Publish</button>
       <form className="writeForm" onSubmit={handleSubmitBlog}>
+        <button className="writeSubmit" type="submit">
+          Publish
+        </button>
         <div className="writeFormGroup">
           <label htmlFor="fileInput">
             <AddIcon

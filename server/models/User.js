@@ -19,7 +19,7 @@ const Schema = mongoose.Schema({
   },
   profilePic: {
     type: String,
-    default: "",
+    default: "uploads/defaults/user.svg",
   },
   blogs: [
     {

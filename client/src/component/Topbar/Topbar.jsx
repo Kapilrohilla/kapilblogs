@@ -16,7 +16,7 @@ const topBarIconsCSS = {
   cursor: "pointer",
 };
 const searchBarIconCSS = {
-  fontSize: "18px",
+  fontSize: "30px",
   color: "#666",
   cursor: "pointer",
   marginLeft: "15px",
@@ -28,12 +28,13 @@ const anchorTagCSS = {
 
 const Topbar = () => {
   const globalStates = useContext(DataProvider);
-  // const user = false;
   const navigate = useNavigate();
   function handleLogout() {
     globalStates.setUser(null);
     window.localStorage.removeItem("loggedInUser");
+    window.localStorage.removeItem("token");
   }
+  console.log(globalStates.user);
   return (
     <div className="top">
       <div className="topLeft">
@@ -72,14 +73,18 @@ const Topbar = () => {
       </div>
       <div className="topRight">
         {globalStates.user ? (
-          <img
-            className="topImg"
-            src={globalStates.user.profilePic}
-            alt={globalStates.user.username}
-            onClick={() => {
-              navigate("/settings");
-            }}
-          />
+          <>
+            <Link to={`/settings/${globalStates.user.id}`}>
+              <img
+                className="topImg"
+                src={`http://localhost:3000/${globalStates.user.profilePic}`}
+                alt={globalStates.user.username}
+                onClick={() => {
+                  navigate("/settings");
+                }}
+              />
+            </Link>
+          </>
         ) : (
           <ul className="topListItem">
             <Link to="/login" style={anchorTagCSS}>

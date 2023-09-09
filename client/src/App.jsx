@@ -22,9 +22,9 @@ const Layout = () => {
 function App() {
   const [user, setUser] = useState(null);
   const [blogs, setBlogs] = useState(null);
-  console.log("----blogs-----");
-  console.log(blogs);
-  console.log("----blogs-----");
+  // console.log("----blogs-----");
+  // console.log(blogs);
+  // console.log("----blogs-----");
   useEffect(() => {
     const alreadyLoginUser = JSON.parse(
       window.localStorage.getItem("loggedInUser")
@@ -64,7 +64,7 @@ function App() {
           element: <Single />,
         },
         {
-          path: "/settings",
+          path: "/settings/:id",
           element: user ? <Settings /> : <Login />,
         },
       ],

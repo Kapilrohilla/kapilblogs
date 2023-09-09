@@ -4,6 +4,7 @@ const { SECRET } = require("./config");
 const User = require("../models/User");
 
 // Error Hanlding
+// eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
   if (
     err.name === "MongoServerSelectionError" ||
@@ -40,7 +41,7 @@ async function userExtractor(req, res, next) {
     const decodedToken = jwt.verify(token, SECRET);
     req.user = await User.findById(decodedToken.id);
   } catch (err) {
-    /*empty*/
+    console.log(err);
   }
 
   next();

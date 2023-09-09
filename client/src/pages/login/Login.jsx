@@ -22,6 +22,8 @@ export default function Login() {
     e.preventDefault();
     const response = await userServices.login(loginCredential);
     globalStates.setUser(response);
+    window.localStorage.setItem("token", JSON.stringify(response.token));
+    delete response.token;
     window.localStorage.setItem("loggedInUser", JSON.stringify(response));
     alert(`${response.username} logged in successfully`);
     navigate("/");

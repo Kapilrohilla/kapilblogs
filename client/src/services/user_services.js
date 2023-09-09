@@ -13,4 +13,8 @@ const login = async (loginCredentials) => {
   const loggedinUser = response.data;
   return loggedinUser;
 };
-export default { createuser, login, token };
+const updateUser = async (userData, config, id) => {
+  const response = await axios.put(`${baseUrl}/users/${id}`, userData, config);
+  return response.data;
+};
+export default { createuser, login, updateUser, token };

@@ -2,11 +2,12 @@
 import "./Singlepost.css";
 import { useContext } from "react";
 import DataProvider from "../../contexts/DataProvider";
+import { useNavigate } from "react-router-dom";
 // icons
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import blogs_services from "../../services/blogs_services";
-import { useNavigate } from "react-router-dom";
+
 const singlePostEditIconCss = {
   marginLeft: "10px",
   cursor: "pointer",
@@ -23,7 +24,6 @@ export default function Singlepost({ post }) {
       },
     };
     await blogs_services.deleteBlog(post.id, config);
-    // update globalStates.blogs, navigate to homepage
     console.log(globalStates.blogs);
     const afterRemoveBlogs = globalStates.blogs.filter((blog) => {
       return blog.id !== post.id;

@@ -20,10 +20,11 @@ export default function Write() {
     blogData.append("title", newBlog.title);
     blogData.append("desc", newBlog.description);
     blogData.append("blogImg", newBlog.blogImg);
+    const token = "Bearer " + JSON.parse(localStorage.getItem("token"));
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${globalStates.user.token}`,
+        Authorization: token,
       },
     };
     const responseData = await blogs_services.createBlog(blogData, config);

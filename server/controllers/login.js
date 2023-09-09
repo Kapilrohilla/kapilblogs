@@ -27,13 +27,13 @@ loginRouter.post("/", async (req, res) => {
     username: user.username,
     id: user.id,
   };
-  const token = await jwt.sign(userForToken, SECRET, { expiresIn: "8h" });
-
+  const token = jwt.sign(userForToken, SECRET);
   if (token) {
     return res.status(200).json({
       token,
       email: user.email,
       ...userForToken,
+      profilePic: user.profilePic,
     });
   }
 

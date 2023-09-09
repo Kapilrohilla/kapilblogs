@@ -17,10 +17,12 @@ export default function Singlepost({ post }) {
   console.log(post);
   const navigate = useNavigate();
   const globalStates = useContext(DataProvider);
+  const token = "Bearer " + JSON.parse(localStorage.getItem("token"));
+  console.log(token);
   async function handleDelete() {
     const config = {
       headers: {
-        Authorization: `Bearer ${globalStates.user.token}`,
+        Authorization: token,
       },
     };
     await blogs_services.deleteBlog(post.id, config);
@@ -28,7 +30,7 @@ export default function Singlepost({ post }) {
     const afterRemoveBlogs = globalStates.blogs.filter((blog) => {
       return blog.id !== post.id;
     });
-    alert(`${post.title} - deleted successful!!`);
+    alert(`${post.title} - deleted successful🥲`);
     globalStates.setBlogs(afterRemoveBlogs);
     navigate("/");
   }

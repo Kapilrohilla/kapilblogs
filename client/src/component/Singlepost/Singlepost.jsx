@@ -18,7 +18,6 @@ export default function Singlepost({ post }) {
   const navigate = useNavigate();
   const globalStates = useContext(DataProvider);
   const token = "Bearer " + JSON.parse(localStorage.getItem("token"));
-  console.log(token);
   async function handleDelete() {
     const config = {
       headers: {
@@ -26,7 +25,6 @@ export default function Singlepost({ post }) {
       },
     };
     await blogs_services.deleteBlog(post.id, config);
-    console.log(globalStates.blogs);
     const afterRemoveBlogs = globalStates.blogs.filter((blog) => {
       return blog.id !== post.id;
     });
@@ -47,7 +45,7 @@ export default function Singlepost({ post }) {
         {post.title}
         <div className="singlePostEdit">
           {globalStates.user !== null &&
-          globalStates.user.username === post.user[0].username ? (
+          globalStates.user.username === post.user.username ? (
             <>
               <EditIcon sx={{ ...singlePostEditIconCss, color: "teal" }} />
               <DeleteIcon
@@ -62,7 +60,7 @@ export default function Singlepost({ post }) {
       </h1>
       <div className="singlePostInfo">
         <span className="singlePostAuthor">
-          Author: <b>{post.user[0].username}</b>
+          Author: <b>{post.user.username}</b>
         </span>
         <span className="singlePostDate">
           {new Date(post.createdAt).toDateString()}

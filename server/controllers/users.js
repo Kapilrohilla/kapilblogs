@@ -2,6 +2,8 @@ const userRouter = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const multer = require("multer");
+const Blog = require("../models/Blog");
+const { userExtractor } = require("../utils/middleware");
 
 // GET ALL USER
 userRouter.get("/", async (_req, res, next) => {
@@ -83,6 +85,28 @@ userRouter.put("/:id", upload.single("profilePic"), async (req, res, next) => {
     return res.status(200).json(response);
   } catch (err) {
     next(err);
+  }
+});
+
+// DELETE USER
+userRouter.delete("/:id", userExtractor, async (req, res, next) => {
+  if (!req.user) {
+    return res.sendStatus(401);
+  }
+  const id = req.params.id;
+  if (req.user.id !== id) {
+    return res.sendStatus(401);
+  }
+  if (id) {
+    const userDeleteResponse = await User.findOneAndDelete({
+      username: req.user.username,
+    });
+    console.log(userDeleteResponse, 0);
+    const blogDeleteResponse = await Blog.deleteMany({ user: id });
+    console.log(blogDeleteResponse);
+    return res.status(200).json(userDeleteResponse);
+  } else {
+    next();
   }
 });
 module.exports = userRouter;

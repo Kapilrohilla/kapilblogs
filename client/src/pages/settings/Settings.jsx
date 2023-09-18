@@ -8,11 +8,11 @@ import { useContext, useEffect, useState } from "react";
 import user_services from "../../services/user_services";
 
 export default function Setting() {
-  // TODO complete updae section on frontend also create PUT api at backend
   const navigate = useNavigate();
   const location = useLocation();
   const id = location.pathname.replace("/settings/", "");
   const globalStates = useContext(DataProvider);
+  console.log(globalStates.blogs);
   const [newImage, setNewImage] = useState("");
   const [userDetailToUpdate, setUserDetailToUpdate] = useState({
     username: "",
@@ -20,6 +20,8 @@ export default function Setting() {
     password: "",
     profilePic: "",
   });
+
+  // FIXME text body are unable to update
   const handleUpdateUserDetail = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -39,9 +41,36 @@ export default function Setting() {
     console.log(response);
     globalStates.setUser(response);
     window.localStorage.setItem("loggedInUser", JSON.stringify(response));
-    alert("user update successfully!!");
     navigate("/");
   };
+  // FIXME deleting a user unable to delete blog by that user on frontend
+  const handleDeleteUser = async () => {
+    const isDelete = confirm("all blogs will also be deleted");
+    if (!isDelete) {
+      return;
+    }
+    const config = {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          window.localStorage.getItem("token")
+        )}`,
+      },
+    };
+    try {
+      const response = await user_services.deleteUser(id, config);
+      const updateBlogState = globalStates.blogs.filter((blog) => {
+        return blog.user.username !== response.username;
+      });
+      globalStates.setBlogs(updateBlogState);
+      localStorage.removeItem("loggedInUser");
+      localStorage.removeItem("token");
+      globalStates.setUser(null);
+      navigate("/register");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     setUserDetailToUpdate({
       username: globalStates.user.username,
@@ -56,7 +85,9 @@ export default function Setting() {
       <div className="settingsWrapper">
         <div className="settingTitle">
           <span className="settingUpdateTitle">Update your Account</span>
-          <span className="settingDeleteTitle">Delete Account</span>
+          <span className="settingDeleteTitle" onClick={handleDeleteUser}>
+            Delete Account
+          </span>
         </div>
         <form
           className="settingsForm"

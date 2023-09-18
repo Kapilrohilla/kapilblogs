@@ -14,12 +14,10 @@ const blogSchema = mongoose.Schema(
       type: String,
       default: "",
     },
-    user: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "users",
-      },
-    ],
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+    },
     categories: {
       type: Array,
     },

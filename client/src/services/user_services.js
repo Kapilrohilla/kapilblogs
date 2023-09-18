@@ -10,6 +10,7 @@ const createuser = async (userdata) => {
 };
 const login = async (loginCredentials) => {
   const response = await axios.post(`${baseUrl}/login`, loginCredentials);
+  console.log(response, 0);
   const loggedinUser = response.data;
   return loggedinUser;
 };
@@ -17,4 +18,8 @@ const updateUser = async (userData, config, id) => {
   const response = await axios.put(`${baseUrl}/users/${id}`, userData, config);
   return response.data;
 };
-export default { createuser, login, updateUser, token };
+const deleteUser = async (id, config) => {
+  const response = await axios.delete(`${baseUrl}/users/${id}`, config);
+  return response.data;
+};
+export default { createuser, login, updateUser, token, deleteUser };

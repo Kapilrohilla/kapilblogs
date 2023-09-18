@@ -16,11 +16,17 @@ export default function Register() {
     textDecoration: "none",
   };
 
-  const createUser = (e) => {
+  const createUser = async (e) => {
     e.preventDefault();
-    userServices.createuser(formData);
-    setFormData(formData);
-    navigate("/login");
+    try {
+      await userServices.createuser(formData);
+      setFormData(formData);
+      alert(`${formData.username} registered successfully`);
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+      alert(`failed to register - ${error.message}`);
+    }
   };
 
   return (

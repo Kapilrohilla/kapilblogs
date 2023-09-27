@@ -27,9 +27,15 @@ export default function Write() {
         Authorization: token,
       },
     };
-    const responseData = await blogs_services.createBlog(blogData, config);
-    globalStates.setBlogs(globalStates.blogs.concat(responseData));
-    navigate("/");
+    try {
+      const responseData = await blogs_services.createBlog(blogData, config);
+      globalStates.setBlogs(globalStates.blogs.concat(responseData));
+      navigate("/");
+      alert(`Blog created successfully!! (( Title - ${newBlog.title} ))`);
+    } catch (err) {
+      alert("Failed to create blog!!");
+      console.log(err.message);
+    }
   };
   return (
     <div className="write">

@@ -1,9 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import "./Write.css";
 import AddIcon from "@mui/icons-material/Add";
 import blogs_services from "../../services/blogs_services";
 import DataContext from "../../contexts/DataProvider";
 import { useNavigate } from "react-router-dom";
+
+// Rich text editor
+import JoditEditor from "jodit-react";
 
 export default function Write() {
   const [newBlog, setNewBlog] = useState({
@@ -11,6 +14,7 @@ export default function Write() {
     description: "",
     blogImg: "",
   });
+  const editor = useRef(null);
   const navigate = useNavigate();
   const globalStates = useContext(DataContext);
   const handleSubmitBlog = async (e) => {
@@ -91,7 +95,7 @@ export default function Write() {
           />
         </div>
         <div className="writeFormGroup">
-          <textarea
+          {/* <textarea
             placeholder="tell your story"
             type="text"
             className="writeInput writeText"
@@ -102,7 +106,17 @@ export default function Write() {
                 description: e.target.value,
               })
             }
-          ></textarea>
+          ></textarea> */}
+          <JoditEditor
+            ref={editor}
+            value={newBlog.description}
+            onChange={(newContent) => {
+              setNewBlog({
+                ...newBlog,
+                description: newContent,
+              });
+            }}
+          />
         </div>
       </form>
     </div>

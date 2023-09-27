@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import "./Post.css";
+// parser for string to html
+import parse from "html-react-parser";
 export default function Post({ blog }) {
   const anchorTagCSS = { textDecoration: "none", color: "inherit" };
   return (
@@ -25,7 +27,7 @@ export default function Post({ blog }) {
           {new Date(blog.createdAt).toDateString()}
         </span>
       </div>
-      <p className="postDisc">{blog.desc}</p>
+      <p className="postDisc">{parse(blog.desc)}</p>
     </div>
   );
 }

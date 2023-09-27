@@ -8,6 +8,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import blogs_services from "../../services/blogs_services";
 
+// parse string to jsx
+import parse from "html-react-parser";
+
 const singlePostEditIconCss = {
   marginLeft: "10px",
   cursor: "pointer",
@@ -66,7 +69,7 @@ export default function Singlepost({ post }) {
           {new Date(post.createdAt).toDateString()}
         </span>
       </div>
-      <p className="singlePostDesc">{post.desc}</p>
+      <p className="singlePostDesc">{parse(post.desc)}</p>
     </div>
   );
 }

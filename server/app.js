@@ -37,6 +37,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(middleware.tokenExtractor);
 
 // routers
+app.get("/", (req, res) => {
+  res.sendStatus(200).end();
+});
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/blogs", blogRouter);

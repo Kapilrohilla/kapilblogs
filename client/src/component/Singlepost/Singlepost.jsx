@@ -43,33 +43,33 @@ export default function Singlepost({ post }) {
           alt=""
           className="singlePostImg"
         />
-      </div>
-      <h1 className="singlePostTitle">
-        {post.title}
-        <div className="singlePostEdit">
-          {globalStates.user !== null &&
-          globalStates.user.username === post.user.username ? (
-            <>
-              <EditIcon sx={{ ...singlePostEditIconCss, color: "teal" }} />
-              <DeleteIcon
-                sx={{ ...singlePostEditIconCss, color: "tomato" }}
-                onClick={handleDelete}
-              />
-            </>
-          ) : (
-            "Edit options aren't available for you"
-          )}
+        <h1 className="singlePostTitle">
+          {post.title}
+          <div className="singlePostEdit">
+            {globalStates.user !== null &&
+            globalStates.user.username === post.user.username ? (
+              <>
+                <EditIcon sx={{ ...singlePostEditIconCss, color: "teal" }} />
+                <DeleteIcon
+                  sx={{ ...singlePostEditIconCss, color: "tomato" }}
+                  onClick={handleDelete}
+                />
+              </>
+            ) : (
+              "unauthorized to edit"
+            )}
+          </div>
+        </h1>
+        <div className="singlePostInfo">
+          <span className="singlePostAuthor">
+            Author: <b>{post.user.username}</b>
+          </span>
+          <span className="singlePostDate">
+            {new Date(post.createdAt).toDateString()}
+          </span>
         </div>
-      </h1>
-      <div className="singlePostInfo">
-        <span className="singlePostAuthor">
-          Author: <b>{post.user.username}</b>
-        </span>
-        <span className="singlePostDate">
-          {new Date(post.createdAt).toDateString()}
-        </span>
+        <p className="singlePostDesc">{parse(post.desc)}</p>
       </div>
-      <p className="singlePostDesc">{parse(post.desc)}</p>
     </div>
   );
 }

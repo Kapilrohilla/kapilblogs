@@ -20,13 +20,17 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await userServices.login(loginCredential);
-    globalStates.setUser(response);
-    window.localStorage.setItem("token", JSON.stringify(response.token));
-    delete response.token;
-    window.localStorage.setItem("loggedInUser", JSON.stringify(response));
-    alert(`${response.username} logged in successfully`);
-    navigate("/");
+    try {
+      const response = await userServices.login(loginCredential);
+      globalStates.setUser(response);
+      window.localStorage.setItem("token", JSON.stringify(response.token));
+      delete response.token;
+      window.localStorage.setItem("loggedInUser", JSON.stringify(response));
+      alert(`${response.username} logged in successfully 😇`);
+      navigate("/");
+    } catch {
+      alert("Failed to login 😢");
+    }
   };
   return (
     <div className="login">

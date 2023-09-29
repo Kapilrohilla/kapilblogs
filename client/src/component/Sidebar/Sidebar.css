@@ -1,5 +1,7 @@
 .sidebar {
-  flex: 3;
+  /* flex: 3; */
+  min-width: 400px;
+  max-width: 500px;
   margin: 20px;
   padding-bottom: 30px;
   background-color: #fdfbfb;
@@ -51,8 +53,8 @@
   align-items: center;
   justify-content: center;
 }
-@media screen and (max-width: 450px){
-  .sidebar{
+@media screen and (max-width: 450px) {
+  .sidebar {
     margin: 0;
     margin-top: 20;
   }

@@ -3,7 +3,7 @@
 }
 .singlePostWrapper {
   padding: 20px;
-  padding-right: 0;
+  padding-right: 20px;
 }
 
 .singlePostImg {
@@ -13,10 +13,13 @@
   object-fit: cover;
 }
 .singlePostTitle {
-  text-align: center;
   margin: 10px;
   font-family: "Lora", serif;
   font-size: 28px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 .singlePostEdit {
   float: right;
@@ -35,6 +38,7 @@
   color: #666;
   font-size: 18px;
   line-height: 25px;
+  text-align: justify;
 }
 .singlePostDesc::first-letter {
   margin-left: 20px;

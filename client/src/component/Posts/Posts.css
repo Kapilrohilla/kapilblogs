@@ -1,6 +1,10 @@
 .posts {
-  flex: 9;
+  /* flex: 9;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* justify-content: space-between; */
+  gap: 30px;
   margin: 20px;
 }

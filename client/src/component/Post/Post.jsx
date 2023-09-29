@@ -12,7 +12,7 @@ export default function Post({ blog }) {
         src={`http://localhost:3000/${blog.photo}`}
         alt=""
       />
-      <div className="postInfo">
+      <div className="postInfo" style={{ paddingInline: "10px" }}>
         <div className="postCats">
           <span className="postCat">Music</span>
           <span className="postCat">Life</span>

@@ -95,18 +95,6 @@ export default function Write() {
           />
         </div>
         <div className="writeFormGroup">
-          {/* <textarea
-            placeholder="tell your story"
-            type="text"
-            className="writeInput writeText"
-            value={newBlog.description}
-            onChange={(e) =>
-              setNewBlog({
-                ...newBlog,
-                description: e.target.value,
-              })
-            }
-          ></textarea> */}
           <JoditEditor
             ref={editor}
             value={newBlog.description}

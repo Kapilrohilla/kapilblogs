@@ -35,7 +35,7 @@ mongoose
 app.use("/uploads", express.static("uploads"));
 app.use(express.urlencoded({ extended: false }));
 app.use(middleware.tokenExtractor);
-// app.use(middleware.userExtractor);
+
 // routers
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);

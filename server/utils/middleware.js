@@ -10,7 +10,7 @@ function errorHandler(err, req, res, next) {
     err.name === "MongoServerSelectionError" ||
     err.name === "MongooseError"
   ) {
-    res.status(500).json({
+    return res.status(500).json({
       err: "Sorry! database integration is failed",
       // msg: err.message,
     });
@@ -19,7 +19,7 @@ function errorHandler(err, req, res, next) {
       err: err.message,
     });
   } else if (err.name === "CastError") {
-    res.status(500).json({
+    return res.status(500).json({
       err: "malfunction id",
     });
   }

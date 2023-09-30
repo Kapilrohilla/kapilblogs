@@ -1,3 +1,4 @@
 /server/.env
 node_modules/
-uploads/
+server/uploads/dp/*
+server/uploads/postsImage/*

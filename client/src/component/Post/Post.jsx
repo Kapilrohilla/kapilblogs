@@ -9,7 +9,7 @@ export default function Post({ blog }) {
     <div className="post">
       <img
         className="postImg"
-        src={`http://localhost:3000/${blog.photo}`}
+        src={`https://kapilblogs-backend.onrender.com/${blog.photo}`}
         alt=""
       />
       <div className="postInfo" style={{ paddingInline: "10px" }}>

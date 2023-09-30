@@ -12,7 +12,7 @@ import blogs_services from "./services/blogs_services";
 import axios from "axios";
 
 const Layout = () => {
-  axios.defaults.baseURL = "https://kapilblogs.vercel.app/api/";
+  axios.defaults.baseURL = "https://kapilblogs-backend.onrender.com/api";
   return (
     <>
       <Topbar />

@@ -39,7 +39,7 @@ export default function Singlepost({ post }) {
     <div className="singlePost">
       <div className="singlePostWrapper">
         <img
-          src={`http://localhost:3000/${post.photo}`}
+          src={`https://kapilblogs-backend.onrender.com/${post.photo}`}
           alt=""
           className="singlePostImg"
         />

@@ -77,7 +77,7 @@ const Topbar = () => {
             <Link to={`/settings/${globalStates.user.id}`}>
               <img
                 className="topImg"
-                src={`http://localhost:3000/${globalStates.user.profilePic}`}
+                src={`https://kapilblogs-backend.onrender.com/${globalStates.user.profilePic}`}
                 alt={globalStates.user.username}
                 onClick={() => {
                   navigate("/settings");
